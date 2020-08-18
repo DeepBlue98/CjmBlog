@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+
+  <style>
+    /*最外层容器样式*/
+    .wrap {
+      z-index: 100;
+      margin-top: 50px;
+      margin-left: 50px;
+      width: 200px;
+      height: 200px;
+
+      position: absolute;
+    }
+
+    /*包裹所有容器样式*/
+    .cube {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      transform: rotateX(-30deg) rotateY(-80deg);
+      animation: rotate linear 20s infinite;
+    }
+
+    @-webkit-keyframes rotate {
+      from {
+        transform: rotateX(0deg) rotateY(0deg);
+      }
+      to {
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+    }
+
+    .cube div {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      opacity: 0.8;
+      transition: all .4s;
+    }
+
+    /*定义所有图片样式*/
+    .pic {
+      width: 200px;
+      height: 200px;
+    }
+
+    .cube .out_front {
+      transform: rotateY(0deg) translateZ(100px);
+    }
+
+    .cube .out_back {
+      transform: translateZ(-100px) rotateY(180deg);
+    }
+
+    .cube .out_left {
+      transform: rotateY(-90deg) translateZ(100px);
+    }
+
+    .cube .out_right {
+      transform: rotateY(90deg) translateZ(100px);
+    }
+
+    .cube .out_top {
+      transform: rotateX(90deg) translateZ(100px);
+    }
+
+    .cube .out_bottom {
+      transform: rotateX(-90deg) translateZ(100px);
+    }
+
+    /*定义小正方体样式*/
+    .cube span {
+      display: block;
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+    }
+
+    .cube .in_pic {
+      width: 100px;
+      height: 100px;
+    }
+
+    .cube .in_front {
+      transform: rotateY(0deg) translateZ(50px);
+    }
+
+    .cube .in_back {
+      transform: translateZ(-50px) rotateY(180deg);
+    }
+
+    .cube .in_left {
+      transform: rotateY(-90deg) translateZ(50px);
+    }
+
+    .cube .in_right {
+      transform: rotateY(90deg) translateZ(50px);
+    }
+
+    .cube .in_top {
+      transform: rotateX(90deg) translateZ(50px);
+    }
+
+    .cube .in_bottom {
+      transform: rotateX(-90deg) translateZ(50px);
+    }
+
+    /*鼠标移入后样式*/
+    .cube:hover .out_front {
+      transform: rotateY(0deg) translateZ(200px);
+    }
+
+    .cube:hover .out_back {
+      transform: translateZ(-200px) rotateY(180deg);
+    }
+
+    .cube:hover .out_left {
+      transform: rotateY(-90deg) translateZ(200px);
+    }
+
+    .cube:hover .out_right {
+      transform: rotateY(90deg) translateZ(200px);
+    }
+
+    .cube:hover .out_top {
+      transform: rotateX(90deg) translateZ(200px);
+    }
+
+    .cube:hover .out_bottom {
+      transform: rotateX(-90deg) translateZ(200px);
+    }
+  </style>
+</head>
+<body>
+
+  <!--导航-->
+  <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+    <div class="ui container">
+      <div class="ui inverted secondary stackable menu">
+        <h2 class="ui teal header item">曹建明的博客</h2>
+        <a href="#" th:href="@{/}" class=" m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
+        <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
+        <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
+        <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
+        <a href="#" th:href="@{/about}" class="active m-item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
+        <div class="right m-item item m-mobile-hide">
+          <form name="search" action="" method="post" th:action="@{/search}" >
+            <div class="ui icon inverted transparent input m-margin-tb-tiny">
+              <input type="text" name="query" placeholder="Search...." th:value="${query}">
+              <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+      <i class="sidebar icon"></i>
+    </a>
+  </nav>
+
+  <!--中间内容-->
+  <div  class="m-container m-padded-tb-big">
+    <div class="ui container">
+
+      <div class="ui stackable grid">
+        <div class="eleven wide column">
+          <div class="ui segment">
+            <img  src="../static/images/me.jpg"  th:src="@{/images/me.jpg}" alt="" class="ui rounded image">
+          </div>
+        </div>
+        <div class="five wide column">
+          <div class="ui top attached segment">
+            <div class="ui header">关于我</div>
+          </div>
+          <div class="ui attached segment">
+            <p class="m-text">98后开发者，Java、C#服务器端开发，希望结识可以共同成长的小伙伴</p>
+            <p class="m-text">终身学习、不断探索、一直在路上...</p>
+          </div>
+          <div class="ui attached segment">
+            <a class="ui red tag label">开发</a>
+            <a class="ui green tag label">Java</a>
+            <a class="ui teal tag label">C#</a>
+          </div>
+          <div class="ui attached segment">
+            <a class="ui red circular label">编程</a>
+            <a class="ui orange circular label">学习</a>
+            <a class="ui yellow circular label">摸鱼</a>
+            <a class="ui olive circular label">专写bug</a>
+          </div>
+          <div class="ui bottom attached segment">
+            <a href="https://github.com/DeepBlue98"  target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
+            <a href="#" class="ui wechat circular icon button"><i class="qq icon"></i></a>
+
+<!--            <a href="https://blog.csdn.net/qq_43364342" target="_blank" class="ui circular icon button"><i class="fort awesome icon"></i></a>-->
+<!--            <a href="#" class="ui qq circular icon button" data-content="865729312" data-position="bottom center"><i class="qq icon"></i></a>-->
+
+           <div align="center" style="vertical-align: middle; height: 40px; width: 90px; margin-top: 25px; margin-left: 5px; display: inline">
+              <a  target="_blank" href="">
+                <img  border="0"  src=""
+                     alt="电脑端点击这里给我发临时消息" title="电脑端点击这里给我发临时消息"/></a>
+         </div>
+
+
+
+          </div>
+
+          <div class="wrap" >
+            <!--包裹所有元素的容器-->
+            <div class="cube">
+              <!--前面图片 -->
+              <div class="out_front">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595775502693&di=3e70d600fd90e32deb85139ca61cdb41&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D1530665328%2C2361502470%26fm%3D214%26gp%3D0.jpg" class="pic" />
+              </div>
+              <!--后面图片 -->
+              <div class="out_back">
+                <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=865625540,69448143&fm=26&gp=0.jpg" class="pic" />
+              </div>
+              <!--左面图片 -->
+              <div class="out_left">
+                <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=45377088,414106118&fm=26&gp=0.jpg" class="pic" />
+              </div>
+              <!--右面图片 -->
+              <div class="out_right">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595775683868&di=18b437cb9e0611de18afe950872a0a11&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fbaike%2Fpic%2Fitem%2Fd35a10f4a31ca557dcc47427.jpg" class="pic" />
+              </div>
+              <!--上面图片 -->
+              <div class="out_top">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595775731540&di=db662ff9063766be4fad19e0feb64b21&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171110%2Fa8672ac4df6b4dce8a2100cc6125723c.png" class="pic" />
+              </div>
+              <!--下面图片 -->
+              <div class="out_bottom">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595775767646&di=f9799b32b3c9c7c88e454a7e3bc365e0&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-24b62548b48af3e019a3c82df54758a8_r.jpg" class="pic" />
+              </div>
+
+              <!--小正方体 -->
+              <span class="in_front">
+                <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=926136054,3682459311&fm=26&gp=0.jpg" class="in_pic" />
+            </span>
+              <span class="in_back">
+                 <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2360783917,706650473&fm=26&gp=0.jpg" class="in_pic" />
+            </span>
+              <span class="in_left">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595775984692&di=654d1012d288bc5b8ca2f0299a8a322c&imgtype=0&src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-5a267e7a4049caa7ab44b1859541d979_1200x500.jpg" class="in_pic" />
+            </span>
+              <span class="in_right">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595776073748&di=d57c4da7efc5535509a4e6062f6ee24c&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F02%2F08%2F05%2F599e662314fb6_610.jpg" class="in_pic" />
+            </span>
+              <span class="in_top">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595776131864&di=68677b368114a795012aa161f0b9bfe6&imgtype=0&src=http%3A%2F%2Ftc.sinaimg.cn%2Fmaxwidth.800%2Ftc.service.weibo.com%2Fs5_51cto_com%2F2fe8425703331d4ce44078856853c53c.jpg" class="in_pic" />
+            </span>
+              <span class="in_bottom">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595776166392&di=2a427df112175b625d8d09a0f990a5e6&imgtype=0&src=http%3A%2F%2Fimg.go007.com%2F2017%2F07%2F21%2Fed55de17af9a11ab_0.jpg" class="in_pic" />
+            </span>
+            </div>
+
+          </div>
+
+          <div class="ui wechat-qr flowing popup transition hidden">
+            <img src="../static/images/qq.jpg"  th:src="@{/images/qq.jpg}" alt="" class="ui rounded image" style="width: 110px; z-index: 9999;">
+          </div>
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <!--底部footer-->
+  <footer  class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+      <div class="ui inverted divided stackable grid">
+
+        <div class="four wide column">
+          <div class="ui inverted link list">
+            <div class="item">
+
+
+              <img src="../static/images/qq.jpg"  th:src="@{/images/qq.jpg}" class="ui rounded image" alt="" style="width: 110px">
+            </div>
+          </div>
+        </div>
+
+        <div class="four wide column">
+          <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item m-text-thin"></a>
+            <a href="#" class="item m-text-thin">Q</a>
+          </div>
+        </div>
+        <div class="eight wide column">
+          <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
+          <p class="m-text-thin m-text-spaced m-opacity-mini">98后开发者、Java、C#学习、记录、分享、交流</p>
+        </div>
+      </div>
+      <div class="ui inverted section divider"></div>
+      <p class="m-text-thin m-text-spaced m-opacity-tiny">Blog development based on SpringBoot and Linux</p>
+      <br>
+      <p class="m-text-thin m-text-spaced m-opacity-tiny">Development by Cao Jianming</p>
+    </div>
+
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+  <script>
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.wechat').popup({
+      popup : $('.wechat-qr'),
+      position: 'bottom center'
+    });
+    $('.qq').popup();
+
+  </script>
+</body>
+</html>
